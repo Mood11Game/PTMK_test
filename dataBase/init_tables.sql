@@ -1,4 +1,3 @@
--- Этот файл выполнять подключённым к ptmk_test_db
 
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,

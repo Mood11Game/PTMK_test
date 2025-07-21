@@ -6,25 +6,16 @@
 #include <random>
 #include <functional>
 
-void print_help(const std::string& app_name) 
-{
-    std::cout << "====== PTMK Test Application Modes ======\n";
-    std::cout << "Usage: " << app_name << " <mode> [params]\n\n";
-    std::cout << "Modes:\n";
-    std::cout << "1 - Create employee table in DB\n";
-    std::cout << "2 - Insert a single employee\n";
-    std::cout << "    Usage: " << app_name << " 2 <LastName> <FirstName> <MiddleName> <BirthDate> <Gender>\n";
-    std::cout << "3 - Select and display all employees\n";
-    std::cout << "4 - Bulk insert 1,000,000 employees + 100 with 'F' last names\n";
-    std::cout << "5 - Select male employees with last name starting with 'F' and measure time\n";
-    std::cout << "6 - Create index to optimize previous query and measure performance gain\n";
-    std::cout << "=========================================\n";
-}
+void print_help(const std::string& app_name);
 
 int main(int argc, char* argv[]) 
 {
     std::vector<std::string> args(argv, argv + argc);
-    std::string conn_str = "dbname=ptmk_test_db user=moodgame";
+//
+//CHANGE  DATABASE NAME               |   AND NAME USER |
+//                                    |                 |
+//                                    v                 v  
+    std::string conn_str = "dbname=<YOU_DATA_NAME> user=<USER_NAME>";
     DBManager db(conn_str);
 
     if (args.size() < 2) 
@@ -131,4 +122,19 @@ int main(int argc, char* argv[])
             return 1;
     }
 
+}
+
+void print_help(const std::string& app_name) 
+{
+    std::cout << "====== PTMK Test Application Modes ======\n";
+    std::cout << "Usage: " << app_name << " <mode> [params]\n\n";
+    std::cout << "Modes:\n";
+    std::cout << "1 - Create employee table in DB\n";
+    std::cout << "2 - Insert a single employee\n";
+    std::cout << "    Usage: " << app_name << " 2 <LastName> <FirstName> <MiddleName> <BirthDate> <Gender>\n";
+    std::cout << "3 - Select and display all employees\n";
+    std::cout << "4 - Bulk insert 1,000,000 employees + 100 with 'F' last names\n";
+    std::cout << "5 - Select male employees with last name starting with 'F' and measure time\n";
+    std::cout << "6 - Create index to optimize previous query and measure performance gain\n";
+    std::cout << "=========================================\n";
 }
