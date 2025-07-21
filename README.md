@@ -54,7 +54,7 @@ git clone https://github.com/Mood11Game/PTMK_test.git
 
 С помощью CMake(из /build):
 ```bash
-cmake ..
+cmake .. && make 
 ```
 
 ## ⚡ Использование
