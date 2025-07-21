@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <random>
+#include <functional>
 
 void print_help(const std::string& app_name) 
 {
@@ -65,30 +67,57 @@ int main(int argc, char* argv[])
             break;
         case 4: 
         {
+            auto random_in_range = [](int min, int max) -> int{
+                return min + rand() % (max - min + 1);
+            };
+
             std::vector<Employee> employees;
-            employees.reserve(1000100); 
-            for (int i = 0; i < 1000000; ++i) 
+            std::vector<std::string> firstNamePerson ={
+                "James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael", "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Charles", "Karen", "Christopher", "Nancy", "Daniel", "Lisa", "Matthew", "Betty", "Anthony", "Margaret", "Donald", "Sandra",
+                "Mark", "Ashley", "Paul", "Kimberly", "Steven", "Emily", "Andrew", "Donna", "Kenneth", "Michelle", "George", "Dorothy", "Joshua", "Carol", "Kevin", "Amanda", "Brian", "Melissa", "Edward", "Deborah", "Ronald", "Stephanie", "Timothy", "Rebecca", "Jason", "Laura", "Jeffrey", "Sharon", "Ryan", "Cynthia",
+                "Jacob", "Kathleen", "Gary", "Amy", "Nicholas", "Shirley", "Eric", "Angela", "Stephen", "Helen", "Jonathan", "Anna", "Larry", "Brenda", "Justin", "Pamela", "Scott", "Nicole", "Brandon", "Emma", "Benjamin", "Samantha", "Samuel", "Katherine", "Frank", "Christine", "Gregory", "Debra", "Raymond", "Rachel"
+
+            };
+            std::vector<std::string> lastNamePerson ={
+                "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson",
+                "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts", "Gomez", "Phillips", "Evans", "Turner", "Diaz", "Parker", "Cruz", "Edwards", "Collins", "Reyes",
+                "Stewart", "Morris", "Morales", "Murphy", "Cook", "Rogers", "Gutierrez", "Ortiz", "Morgan", "Cooper", "Peterson", "Bailey", "Reed", "Kelly", "Howard", "Ramos", "Kim", "Cox", "Ward", "Richardson", "Watson", "Brooks", "Chavez", "Wood", "James", "Bennett", "Gray", "Mendoza", "Ruiz", "Hughes",
+                "Price", "Alvarez", "Castillo", "Sanders", "Patel", "Myers", "Long", "Ross", "Foster", "Jimenez"
+
+            };
+
+            std::vector<std::string> midNamePerson ={
+                "Michael", "James", "Robert", "John", "David", "William", "Richard", "Thomas", "Charles", "Joseph", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan",
+                "Jacob", "Gary", "Nicholas", "Eric", "Stephen", "Jonathan", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Frank", "Gregory", "Raymond", "Patrick", "Alexander", "Jack", "Dennis", "Jerry", "Tyler", "Aaron", "Jose", "Henry", "Douglas", "Peter", "Adam", "Nathan", "Zachary", "Walter",
+                "Kyle", "Harold", "Carl", "Jeremy", "Keith", "Roger", "Gerald", "Ethan", "Arthur", "Terry", "Christian", "Sean", "Lawrence", "Austin", "Joe", "Noah", "Jesse", "Albert", "Bryan", "Billy", "Bruce", "Willie", "Jordan", "Dylan", "Alan", "Ralph", "Gabriel", "Roy", "Juan"
+
+            };
+
+            employees.reserve(1'000'100);
+
+            for (int i = 0; i < 1'000'000; ++i) 
             {
-                employees.emplace_back(
-                    "Smith" + std::to_string(i),
-                    "John",
-                    "Doe",
-                    "1990-01-01",
-                    (i % 2 == 0) ? "Male" : "Female"
-                );
+                std::string last_name =  lastNamePerson[random_in_range(0,99)];
+                std::string first_name = firstNamePerson[random_in_range(0,99)];
+                std::string middle_name = midNamePerson[random_in_range(0,99)];
+                std::string birth_date = std::to_string(random_in_range(1970,2020)) + "-" + std::to_string(random_in_range(1,12)) + "-" + std::to_string(random_in_range(1,12));
+                std::string gender = ((i % 2 == 0) ? "Male" : "Female");
+                employees.emplace_back(last_name, first_name, middle_name, birth_date, gender);
             }
+
             for (int i = 0; i < 100; ++i) 
             {
-                employees.emplace_back(
-                    "Foster" + std::to_string(i),
-                    "Mike",
-                    "Jr",
-                    "1985-05-05",
-                    "Male"
-                );
+                std::string last_name =  lastNamePerson[random_in_range(0,99)];
+                std::string first_name = firstNamePerson[random_in_range(0,99)];
+                std::string middle_name = midNamePerson[random_in_range(0,99)];
+                std::string birth_date = std::to_string(random_in_range(1970,2020)) + "-" + std::to_string(random_in_range(1,12)) + "-" + std::to_string(random_in_range(1,12));
+                std::string gender = "Male";
+                employees.emplace_back(last_name, first_name, middle_name, birth_date, gender);
             }
+
             db.insert_bulk(employees);
             break;
+
         }
         case 5:
             db.select_by_filter();
