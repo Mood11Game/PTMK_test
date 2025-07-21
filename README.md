@@ -1,57 +1,87 @@
-PTMK_TEST
+# PTMK_test
 
-Empowering Data-Driven Decisions with Seamless Precision
+**Консольное приложение для тестового задания PTMK**
 
-last-commit repo-top-language repo-language-count
-Built with the tools and technologies:
+📌 **Язык:** C++17  
+📌 **СУБД:** PostgreSQL  
+📌 **Сборка:** CMake / g++  
+📌 **Кодировка:** UTF-8
 
-Markdown C++ CMake
+---
 
-Table of Contents
+## 📋 Описание
 
-Overview
-Getting Started
-Prerequisites
-Installation
-Usage
-Testing
-Overview
+Приложение реализует справочник сотрудников на базе PostgreSQL с возможностью:
+- Создания таблиц.
+- Вставки сотрудников (по одному и массово).
+- Вывода данных с вычислением возраста.
+- Создания индекса для оптимизации(До индекса: ~1.4 сек. после индекса: ~0.3 сек.)
 
-Getting Started
 
-Prerequisites
+Реализован **ООП**:  
+✅ `Employee` – класс сотрудника.  
+✅ `DBManager` – класс для управления БД.
 
-This project requires the following dependencies:
+## 🚀 Установка
 
-Programming Language: CPP
-Package Manager: Cmake
-Installation
+1️⃣ Установить PostgreSQL и libpqxx:
+```bash
+sudo apt update
+sudo apt install libpqxx-dev postgresql
+```
 
-Build PTMK_test from the source and install dependencies:
+2️⃣ Клонировать репозиторий:
+```bash
+git clone https://github.com/Mood11Game/PTMK_test.git
+```
+3️⃣ Собрать проект:
 
-Clone the repository:
+С помощью CMake(из /build):
+```bash
+cmake ..
+```
 
-❯ git clone https://github.com/Mood11Game/PTMK_test
-Navigate to the project directory:
+⚡ Использование
 
-❯ cd PTMK_test
-Install the dependencies:
+Запуск
+```bash
+./PTMK_test <mode> [параметры]
+```
 
-Using cmake:
+🧩 Примеры запуска
 
-❯ cmake . && make
-Usage
+✅ Создать таблицу:
+```bash
+./PTMK_test 1
+```
+✅ Добавить сотрудника:
+```bash
+./PTMK_test 2 Ivanov Petr Sergeevich 2000-01-01 Male
+```
+✅ Вывести всех сотрудников:
+```bash
+./PTMK_test 3
+```
+✅ Массовое добавление:
+```bash
+./PTMK_test 4
+```
+✅ Выборка с фильтром:
+```bash
+./PTMK_test 5
+```
+✅ Создание индекса:
+```bash
+./PTMK_test 6
+```
 
-Run the project with:
+📚 Режимы работы
 
-Using cmake:
+Mode	Описание
+1	Создать таблицу сотрудников в БД
+2	Добавить одного сотрудника
+3	Вывести всех сотрудников (с возрастом)
+4	Массово добавить 1,000,000 сотрудников + 100 с фамилией на 'F'
+5	Выборка сотрудников: пол = "Male", фамилия на 'F', с измерением времени
+6	Создать индекс для ускорения выборки
 
-./PTMK_test
-Testing
-
-Ptmk_test uses the {test_framework} test framework. Run the test suite with:
-
-Using cmake:
-
-ctest
-⬆ Return
